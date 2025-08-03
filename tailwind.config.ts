@@ -18,6 +18,10 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				mono: ['JetBrains Mono', 'Fira Code', 'Source Code Pro', 'Courier New', 'monospace'],
+				terminal: ['JetBrains Mono', 'monospace'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -61,6 +65,15 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				terminal: {
+					green: 'hsl(var(--terminal-green))',
+					amber: 'hsl(var(--terminal-amber))',
+					red: 'hsl(var(--terminal-red))',
+				},
+				panel: {
+					border: 'hsl(var(--panel-border))',
+					glow: 'hsl(var(--panel-glow))',
 				}
 			},
 			borderRadius: {
