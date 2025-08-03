@@ -1,7 +1,7 @@
-import SpyDashboard from "@/components/SpyDashboard";
+import AuctionDashboard from "@/components/SpyDashboard";
 
 const Index = () => {
-  return <SpyDashboard />;
+  return <AuctionDashboard />;
 };
 
 export default Index;
