@@ -22,7 +22,7 @@ const SpyDashboard = () => {
         <div className="col-span-3">
           <Card className="border-panel-border bg-card/50 p-4">
             <div className="mb-4 border-b border-panel-border pb-2">
-              <h3 className="text-foreground">Agent Details</h3>
+              <h3 className="text-terminal-green">Agent Details</h3>
               <p className="text-xs text-muted-foreground">Detailed dossier of intelligence personnel</p>
             </div>
             
@@ -37,7 +37,7 @@ const SpyDashboard = () => {
             </div>
 
             <div className="mb-4">
-              <h4 className="mb-2 text-foreground">Agent Activity</h4>
+              <h4 className="mb-2 text-terminal-green">Agent Activity</h4>
               <div className="grid grid-cols-3 gap-2 text-center">
                 <div>
                   <div className="text-2xl font-bold">72</div>
@@ -75,7 +75,7 @@ const SpyDashboard = () => {
             </div>
 
             <div>
-              <h4 className="mb-2 text-foreground">Brief Announcement...</h4>
+              <h4 className="mb-2 text-terminal-green">Brief Announcement...</h4>
               <div className="space-y-1 text-xs">
                 <div>1231... 54.50</div>
                 <div>2... 4.</div>
@@ -92,7 +92,7 @@ const SpyDashboard = () => {
         <div className="col-span-6">
           <Card className="border-panel-border bg-card/50 p-4">
             <div className="mb-4">
-              <h3 className="mb-2 text-foreground">Target Operation...</h3>
+              <h3 className="mb-2 text-terminal-green">Target Operation...</h3>
               
               {/* World Map Area */}
               <div className="relative h-96 border border-panel-border bg-background/50 p-4">
@@ -145,7 +145,7 @@ const SpyDashboard = () => {
         <div className="col-span-3">
           <Card className="border-panel-border bg-card/50 p-4">
             <div className="mb-4 flex items-center justify-between border-b border-panel-border pb-2">
-              <h3 className="text-foreground">Operations List</h3>
+              <h3 className="text-terminal-green">Operations List</h3>
               <Badge variant="destructive" className="bg-terminal-red/20 text-terminal-red">20</Badge>
             </div>
             <p className="mb-4 text-xs text-muted-foreground">
