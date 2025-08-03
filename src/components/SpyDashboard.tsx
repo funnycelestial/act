@@ -8,7 +8,7 @@ const SpyDashboard = () => {
       {/* Header */}
       <div className="mb-6 border border-panel-border bg-card/50 p-4">
         <div className="flex items-center justify-between">
-          <div className="text-xl font-bold text-terminal-green">█ CLASSIFIED OPERATIONS TERMINAL █</div>
+          <div className="text-xl font-bold text-foreground">█ CLASSIFIED OPERATIONS TERMINAL █</div>
           <div className="flex gap-4 text-sm">
             <span className="text-terminal-amber">1 Day</span>
             <span className="text-muted-foreground">1 Week</span>
@@ -22,14 +22,14 @@ const SpyDashboard = () => {
         <div className="col-span-3">
           <Card className="border-panel-border bg-card/50 p-4">
             <div className="mb-4 border-b border-panel-border pb-2">
-              <h3 className="text-terminal-green">Agent Details</h3>
+              <h3 className="text-foreground">Agent Details</h3>
               <p className="text-xs text-muted-foreground">Detailed dossier of intelligence personnel</p>
             </div>
             
             <div className="mb-4">
               <div className="mb-2 h-16 w-16 border border-panel-border bg-secondary/20"></div>
               <div className="space-y-1 text-sm">
-                <div className="text-terminal-green">AGENT 009X3312</div>
+                <div className="text-foreground">AGENT 009X3312</div>
                 <div>» AGE        : null</div>
                 <div>» CODE NAME  : WHISSPERIA</div>
                 <div>» ACTIVE UNTIL: 19/02/2040</div>
@@ -37,7 +37,7 @@ const SpyDashboard = () => {
             </div>
 
             <div className="mb-4">
-              <h4 className="mb-2 text-terminal-green">Agent Activity</h4>
+              <h4 className="mb-2 text-foreground">Agent Activity</h4>
               <div className="grid grid-cols-3 gap-2 text-center">
                 <div>
                   <div className="text-2xl font-bold">72</div>
@@ -62,7 +62,7 @@ const SpyDashboard = () => {
                 
                 <div className="flex items-center justify-between">
                   <span className="text-xs">MEDIUM RISK</span>
-                  <span className="text-xs text-terminal-amber">34</span>
+                  <span className="text-xs text-muted-foreground">34</span>
                 </div>
                 <Progress value={40} className="h-1" />
                 
@@ -75,7 +75,7 @@ const SpyDashboard = () => {
             </div>
 
             <div>
-              <h4 className="mb-2 text-terminal-green">Brief Announcement...</h4>
+              <h4 className="mb-2 text-foreground">Brief Announcement...</h4>
               <div className="space-y-1 text-xs">
                 <div>1231... 54.50</div>
                 <div>2... 4.</div>
@@ -92,14 +92,14 @@ const SpyDashboard = () => {
         <div className="col-span-6">
           <Card className="border-panel-border bg-card/50 p-4">
             <div className="mb-4">
-              <h3 className="mb-2 text-terminal-green">Target Operation...</h3>
+              <h3 className="mb-2 text-foreground">Target Operation...</h3>
               
               {/* World Map Area */}
               <div className="relative h-96 border border-panel-border bg-background/50 p-4">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
-                    <div className="mb-4 text-6xl text-terminal-green">🌍</div>
-                    <div className="text-terminal-green">GLOBAL SURVEILLANCE NETWORK</div>
+                    <div className="mb-4 text-6xl text-foreground">🌍</div>
+                    <div className="text-foreground">GLOBAL SURVEILLANCE NETWORK</div>
                     <div className="mt-2 text-xs text-muted-foreground">
                       Tracking 147 active operations worldwide
                     </div>
@@ -114,8 +114,8 @@ const SpyDashboard = () => {
                 
                 {/* Africa Marker */}
                 <div className="absolute bottom-1/3 right-1/3">
-                  <div className="h-2 w-2 animate-pulse bg-terminal-amber"></div>
-                  <div className="text-xs text-terminal-amber">AFRICA</div>
+                  <div className="h-2 w-2 animate-pulse bg-foreground"></div>
+                  <div className="text-xs text-foreground">AFRICA</div>
                 </div>
               </div>
               
@@ -145,7 +145,7 @@ const SpyDashboard = () => {
         <div className="col-span-3">
           <Card className="border-panel-border bg-card/50 p-4">
             <div className="mb-4 flex items-center justify-between border-b border-panel-border pb-2">
-              <h3 className="text-terminal-green">Operations List</h3>
+              <h3 className="text-foreground">Operations List</h3>
               <Badge variant="destructive" className="bg-terminal-red/20 text-terminal-red">20</Badge>
             </div>
             <p className="mb-4 text-xs text-muted-foreground">
@@ -164,7 +164,7 @@ const SpyDashboard = () => {
               ].map((op, i) => (
                 <div key={i} className="border border-panel-border bg-secondary/20 p-2">
                   <div className="text-xs">
-                    <div className="text-terminal-green">Mission Code: {op.code}</div>
+                    <div className="text-foreground">Mission Code: {op.code}</div>
                     <div className="mt-1 text-foreground">{op.mission}</div>
                     <div className="mt-2 flex gap-2">
                       <button className="bg-secondary px-2 py-1 text-xs">Details</button>
