@@ -43,6 +43,12 @@ All colors MUST be HSL.
     --terminal-red: 0 70% 60%;
     --panel-border: 0 0% 30%;
     --panel-glow: 0 0% 50%;
+    
+    /* Live activity colors */
+    --live-pulse: 120 100% 70%;
+    --live-glow: 120 60% 50%;
+    --auction-active: 45 100% 50%;
+    --warning-flash: 0 100% 65%;
 
     --sidebar-background: 0 0% 12%;
     --sidebar-foreground: 0 0% 85%;
