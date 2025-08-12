@@ -8,6 +8,8 @@ import { AuctionCard } from "./auction/AuctionCard";
 import { EscrowPanel } from "./auction/EscrowPanel";
 import { DisputePanel } from "./auction/DisputePanel";
 import { NotificationPanel } from "./auction/NotificationPanel";
+import { PaymentGateway } from "./auction/PaymentGateway";
+import { SecurityPanel } from "./auction/SecurityPanel";
 
 const AuctionDashboard = () => {
   return (
@@ -100,8 +102,13 @@ const AuctionDashboard = () => {
           </Card>
           
           {/* Notifications Panel */}
-          <Card className="border-panel-border bg-card/50 p-4">
+          <Card className="border-panel-border bg-card/50 p-4 mb-4">
             <NotificationPanel />
+          </Card>
+          
+          {/* Security Panel */}
+          <Card className="border-panel-border bg-card/50 p-4">
+            <SecurityPanel />
           </Card>
         </div>
 
@@ -109,11 +116,13 @@ const AuctionDashboard = () => {
         <div className="col-span-6">
           <Card className="border-panel-border bg-card/50 p-4">
             <Tabs defaultValue="live-auction" className="w-full">
-              <TabsList className="grid w-full grid-cols-4">
+              <TabsList className="grid w-full grid-cols-6">
                 <TabsTrigger value="live-auction">Live Auction</TabsTrigger>
                 <TabsTrigger value="reverse-auction">Reverse Auction</TabsTrigger>
                 <TabsTrigger value="escrow">Escrow</TabsTrigger>
                 <TabsTrigger value="disputes">Disputes</TabsTrigger>
+                <TabsTrigger value="payments">Payments</TabsTrigger>
+                <TabsTrigger value="security">Security</TabsTrigger>
               </TabsList>
               
               <TabsContent value="live-auction" className="space-y-4">
@@ -145,6 +154,14 @@ const AuctionDashboard = () => {
               
               <TabsContent value="disputes">
                 <DisputePanel />
+              </TabsContent>
+              
+              <TabsContent value="payments">
+                <PaymentGateway />
+              </TabsContent>
+              
+              <TabsContent value="security">
+                <SecurityPanel />
               </TabsContent>
             </Tabs>
 
@@ -203,7 +220,7 @@ const AuctionDashboard = () => {
                   timeLeft={auction.timeLeft}
                   category={auction.category}
                   isHot={auction.isHot}
-                  auctionType={auction.type}
+                  auctionType={auction.type as 'forward' | 'reverse'}
                 />
               ))}
             </div>
