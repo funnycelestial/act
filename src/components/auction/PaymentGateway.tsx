@@ -121,15 +121,33 @@ export const PaymentGateway = () => {
             </div>
           ))}
         </div>
+        
+        <div className="mt-4 p-3 border border-terminal-green/30 bg-terminal-green/10 rounded">
+          <h5 className="text-sm text-terminal-green mb-2">Token Exchange Rate</h5>
+          <div className="text-xs space-y-1">
+            <div className="flex justify-between">
+              <span>1 Ghana Token (GHT)</span>
+              <span className="text-terminal-green">= 1.00 GH₵</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Minimum Purchase</span>
+              <span>10 GHT (GH₵ 10)</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Maximum Purchase</span>
+              <span>10,000 GHT (GH₵ 10,000)</span>
+            </div>
+          </div>
+        </div>
       </Card>
 
       {/* Quick Actions */}
       <div className="grid grid-cols-2 gap-2">
         <button className="bg-terminal-green px-3 py-2 text-xs text-background hover:bg-terminal-green/80 transition-colors">
-          + Add Tokens
+          + Buy Tokens (GH₵ → GHT)
         </button>
         <button className="bg-secondary hover:bg-accent px-3 py-2 text-xs transition-colors">
-          Withdraw Funds
+          Cash Out (GHT → GH₵)
         </button>
       </div>
 

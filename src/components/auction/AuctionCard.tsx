@@ -5,9 +5,10 @@ interface AuctionCardProps {
   category: string;
   isHot?: boolean;
   auctionType?: 'forward' | 'reverse';
+  watchers?: number;
 }
 
-export const AuctionCard = ({ item, currentBid, timeLeft, category, isHot, auctionType = 'forward' }: AuctionCardProps) => {
+export const AuctionCard = ({ item, currentBid, timeLeft, category, isHot, auctionType = 'forward', watchers }: AuctionCardProps) => {
   const isUrgent = timeLeft.includes('m') && parseInt(timeLeft) < 10;
   const isReverse = auctionType === 'reverse';
   
@@ -19,7 +20,10 @@ export const AuctionCard = ({ item, currentBid, timeLeft, category, isHot, aucti
           {isHot && <div className="w-2 h-2 bg-auction-active rounded-full animate-pulse-slow"></div>}
           {isReverse && <div className="text-xs bg-terminal-amber/20 text-terminal-amber px-1 rounded">REV</div>}
         </div>
-        <div className="mt-1 text-muted-foreground">{category}</div>
+        <div className="mt-1 flex justify-between items-center">
+          <span className="text-muted-foreground">{category}</span>
+          {watchers && <span className="text-xs text-muted-foreground">{watchers} watching</span>}
+        </div>
         <div className="mt-1 flex justify-between">
           <span className="text-terminal-green">
             {isReverse ? 'Lowest: ' : 'Current: '}{currentBid} tokens
