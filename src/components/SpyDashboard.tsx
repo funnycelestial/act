@@ -19,15 +19,15 @@ const AuctionDashboard = () => {
     <div className="min-h-screen bg-background p-4 font-terminal text-foreground">
       {/* Header */}
       <div className="mb-6 border border-panel-border bg-card/50 p-4">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="text-xl font-bold text-foreground">█ ANONYMOUS AUCTION MARKETPLACE █</div>
+            <div className="text-lg lg:text-xl font-bold text-foreground">█ ANONYMOUS AUCTION MARKETPLACE █</div>
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 bg-live-pulse rounded-full animate-pulse-slow"></div>
               <span className="text-xs text-terminal-green animate-pulse-slow">LIVE</span>
             </div>
           </div>
-          <div className="flex gap-4 text-sm">
+          <div className="hidden lg:flex gap-4 text-sm">
             <span className="text-terminal-amber hover:text-terminal-amber/80 cursor-pointer transition-colors">Live Auctions</span>
             <span className="text-muted-foreground hover:text-foreground cursor-pointer transition-colors">Ending Soon</span>
             <span className="text-muted-foreground hover:text-foreground cursor-pointer transition-colors">My Bids</span>
@@ -37,9 +37,9 @@ const AuctionDashboard = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-12 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* Left Panel - User Profile & Wallet */}
-        <div className="col-span-3">
+        <div className="lg:col-span-3">
           <Card className="border-panel-border bg-card/50 p-4 mb-4">
             <div className="mb-4 border-b border-panel-border pb-2">
               <h3 className="text-terminal-green">Anonymous Profile</h3>
@@ -121,17 +121,17 @@ const AuctionDashboard = () => {
         </div>
 
         {/* Center Panel - Main Auction Interface */}
-        <div className="col-span-6">
+        <div className="lg:col-span-6">
           <Card className="border-panel-border bg-card/50 p-4">
             <Tabs defaultValue="live-auction" className="w-full">
-              <TabsList className="grid w-full grid-cols-7">
-                <TabsTrigger value="live-auction">Live Auction</TabsTrigger>
-                <TabsTrigger value="marketplace">Marketplace</TabsTrigger>
-                <TabsTrigger value="my-bids">My Bids</TabsTrigger>
-                <TabsTrigger value="wallet">Wallet</TabsTrigger>
-                <TabsTrigger value="analytics">Analytics</TabsTrigger>
-                <TabsTrigger value="admin">Admin</TabsTrigger>
-                <TabsTrigger value="help">Help</TabsTrigger>
+              <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-1">
+                <TabsTrigger value="live-auction" className="text-xs sm:text-sm">Live</TabsTrigger>
+                <TabsTrigger value="marketplace" className="text-xs sm:text-sm">Market</TabsTrigger>
+                <TabsTrigger value="my-bids" className="text-xs sm:text-sm">My Bids</TabsTrigger>
+                <TabsTrigger value="wallet" className="text-xs sm:text-sm">Wallet</TabsTrigger>
+                <TabsTrigger value="analytics" className="text-xs sm:text-sm hidden sm:block">Analytics</TabsTrigger>
+                <TabsTrigger value="admin" className="text-xs sm:text-sm hidden lg:block">Admin</TabsTrigger>
+                <TabsTrigger value="help" className="text-xs sm:text-sm hidden lg:block">Help</TabsTrigger>
               </TabsList>
               
               <TabsContent value="live-auction" className="space-y-4">
@@ -181,7 +181,7 @@ const AuctionDashboard = () => {
               </TabsContent>
               
               <TabsContent value="marketplace" className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-3">
                     <h4 className="text-terminal-green">Electronics & Tech</h4>
                     {[
@@ -246,7 +246,7 @@ const AuctionDashboard = () => {
                             {bid.status.toUpperCase()}
                           </Badge>
                         </div>
-                        <div className="grid grid-cols-3 gap-2 text-xs">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
                           <div>
                             <span className="text-muted-foreground">My Bid:</span>
                             <div className="text-foreground">{bid.myBid} GHT</div>
@@ -314,7 +314,7 @@ const AuctionDashboard = () => {
         </div>
 
         {/* Right Panel - Active Auctions & Market Info */}
-        <div className="col-span-3">
+        <div className="lg:col-span-3">
           <Card className="border-panel-border bg-card/50 p-4 mb-4">
             <div className="mb-4 flex items-center justify-between border-b border-panel-border pb-2">
               <h3 className="text-terminal-green">Market Overview</h3>
