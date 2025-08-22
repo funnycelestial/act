@@ -353,6 +353,100 @@ class ApiClient {
     if (type) params.append('type', type);
     return this.request(`/payments/history?${params}`);
   }
+
+  // Escrow operations
+  async getEscrowTransactions(status?: string, role?: string, page = 1, limit = 20) {
+    const params = new URLSearchParams({ page: page.toString(), limit: limit.toString() });
+    if (status) params.append('status', status);
+    if (role) params.append('role', role);
+    return this.request(`/escrow/transactions?${params}`);
+  }
+
+  async getEscrowDetails(escrowId: string) {
+    return this.request(`/escrow/${escrowId}`);
+  }
+
+  async confirmDelivery(escrowId: string, rating?: number, feedback?: string) {
+    return this.request(`/escrow/${escrowId}/confirm-delivery`, {
+      method: 'POST',
+      body: JSON.stringify({ rating, feedback }),
+    });
+  }
+
+  async markDelivered(escrowId: string, trackingNumber?: string, carrier?: string) {
+    return this.request(`/escrow/${escrowId}/mark-delivered`, {
+      method: 'POST',
+      body: JSON.stringify({ trackingNumber, carrier }),
+    });
+  }
+
+  async initiateDispute(escrowId: string, reason: string, evidence?: any[]) {
+    return this.request(`/escrow/${escrowId}/dispute`, {
+      method: 'POST',
+      body: JSON.stringify({ reason, evidence }),
+    });
+  }
+
+  // Disputes
+  async getDisputes(status?: string, page = 1, limit = 20) {
+    const params = new URLSearchParams({ page: page.toString(), limit: limit.toString() });
+    if (status) params.append('status', status);
+    return this.request(`/disputes?${params}`);
+  }
+
+  async getDisputeDetails(disputeId: string) {
+    return this.request(`/disputes/${disputeId}`);
+  }
+
+  async respondToDispute(disputeId: string, message: string, evidence?: any[]) {
+    return this.request(`/disputes/${disputeId}/respond`, {
+      method: 'POST',
+      body: JSON.stringify({ message, evidence }),
+    });
+  }
+
+  // Admin endpoints
+  async getAdminDashboard() {
+    return this.request('/admin/dashboard');
+  }
+
+  async getPlatformStatistics(period = '7d') {
+    return this.request(`/admin/statistics?period=${period}`);
+  }
+
+  async getPendingAuctions(page = 1, limit = 20) {
+    return this.request(`/admin/auctions/pending?page=${page}&limit=${limit}`);
+  }
+
+  async approveAuction(auctionId: string, notes?: string) {
+    return this.request(`/admin/auctions/${auctionId}/approve`, {
+      method: 'POST',
+      body: JSON.stringify({ notes }),
+    });
+  }
+
+  async rejectAuction(auctionId: string, reason: string) {
+    return this.request(`/admin/auctions/${auctionId}/reject`, {
+      method: 'POST',
+      body: JSON.stringify({ reason }),
+    });
+  }
+
+  async getUsers(params: any = {}) {
+    const queryString = new URLSearchParams(params).toString();
+    return this.request(`/admin/users?${queryString}`);
+  }
+
+  async updateUserStatus(userId: string, status: string, reason?: string) {
+    return this.request(`/admin/users/${userId}/status`, {
+      method: 'PUT',
+      body: JSON.stringify({ status, reason }),
+    });
+  }
+
+  async getSystemHealth() {
+    return this.request('/admin/system/health');
+  }
 }
 
 export const apiClient = new ApiClient();

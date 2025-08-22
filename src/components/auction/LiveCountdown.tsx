@@ -1,41 +1,55 @@
 import { useState, useEffect } from "react";
 
 interface LiveCountdownProps {
-  targetTime: string;
+  endTime: string;
   className?: string;
 }
 
-export const LiveCountdown = ({ targetTime, className = "" }: LiveCountdownProps) => {
-  const [timeLeft, setTimeLeft] = useState({ minutes: 4, seconds: 37 });
+export const LiveCountdown = ({ endTime, className = "" }: LiveCountdownProps) => {
+  const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [isUrgent, setIsUrgent] = useState(false);
 
   useEffect(() => {
+    const calculateTimeLeft = () => {
+      const now = new Date().getTime();
+      const end = new Date(endTime).getTime();
+      const difference = end - now;
+
+      if (difference > 0) {
+        const hours = Math.floor(difference / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+        
+        setIsUrgent(difference < 60000); // Flash when under 1 minute
+        return { hours, minutes, seconds };
+      }
+      
+      return { hours: 0, minutes: 0, seconds: 0 };
+    };
+
+    // Initial calculation
+    setTimeLeft(calculateTimeLeft());
+
     const interval = setInterval(() => {
-      setTimeLeft(prev => {
-        let newSeconds = prev.seconds - 1;
-        let newMinutes = prev.minutes;
-
-        if (newSeconds < 0) {
-          newSeconds = 59;
-          newMinutes = Math.max(0, newMinutes - 1);
-        }
-
-        const totalSeconds = newMinutes * 60 + newSeconds;
-        setIsUrgent(totalSeconds < 60); // Flash when under 1 minute
-
-        return { minutes: newMinutes, seconds: newSeconds };
-      });
+      setTimeLeft(calculateTimeLeft());
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [endTime]);
 
   const formatTime = (time: number) => time.toString().padStart(2, '0');
+
+  const formatDisplay = () => {
+    if (timeLeft.hours > 0) {
+      return `${formatTime(timeLeft.hours)}:${formatTime(timeLeft.minutes)}:${formatTime(timeLeft.seconds)}`;
+    }
+    return `${formatTime(timeLeft.minutes)}:${formatTime(timeLeft.seconds)}`;
+  };
 
   return (
     <div className={`${className} ${isUrgent ? 'animate-countdown-flash' : ''}`}>
       <span className="text-terminal-green">
-        Time Remaining: {formatTime(timeLeft.minutes)}:{formatTime(timeLeft.seconds)}
+        Time Remaining: {formatDisplay()}
       </span>
     </div>
   );

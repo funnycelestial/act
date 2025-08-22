@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useWebSocket } from "@/contexts/WebSocketContext";
 
 interface Activity {
   id: string;
@@ -6,33 +7,65 @@ interface Activity {
   bidder: string;
   amount?: string;
   time: string;
+  auctionId?: string;
 }
 
 export const LiveActivityFeed = () => {
+  const { on, off } = useWebSocket();
   const [activities, setActivities] = useState<Activity[]>([
-    { id: '1', type: 'bid', bidder: 'ANON_7X2', amount: '1,250', time: 'just now' },
-    { id: '2', type: 'join', bidder: 'VOID_88', time: '5s ago' },
-    { id: '3', type: 'bid', bidder: 'GHOST_99', amount: '1,200', time: '45s ago' },
+    { id: '1', type: 'bid', bidder: 'ANON_7X2', amount: '1,250', time: 'just now', auctionId: 'AUC_001' },
+    { id: '2', type: 'join', bidder: 'VOID_88', time: '5s ago', auctionId: 'AUC_002' },
+    { id: '3', type: 'bid', bidder: 'GHOST_99', amount: '1,200', time: '45s ago', auctionId: 'AUC_001' },
   ]);
 
-  // Simulate new activities
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (Math.random() > 0.7) { // 30% chance every 3 seconds
-        const newActivity: Activity = {
-          id: Date.now().toString(),
-          type: Math.random() > 0.5 ? 'bid' : 'join',
-          bidder: `USER_${Math.floor(Math.random() * 99)}`,
-          amount: Math.random() > 0.5 ? `${1000 + Math.floor(Math.random() * 500)}` : undefined,
-          time: 'just now'
-        };
+    // Listen for real-time bid updates
+    const handleBidPlaced = (data: any) => {
+      const newActivity: Activity = {
+        id: Date.now().toString(),
+        type: 'bid',
+        bidder: data.bidder,
+        amount: data.amount.toLocaleString(),
+        time: 'just now',
+        auctionId: data.auctionId
+      };
+      
+      setActivities(prev => [newActivity, ...prev.slice(0, 9)]);
+    };
 
-        setActivities(prev => [newActivity, ...prev.slice(0, 4)]);
-      }
-    }, 3000);
+    const handleUserJoined = (data: any) => {
+      const newActivity: Activity = {
+        id: Date.now().toString(),
+        type: 'join',
+        bidder: data.anonymousId,
+        time: 'just now'
+      };
+      
+      setActivities(prev => [newActivity, ...prev.slice(0, 9)]);
+    };
 
-    return () => clearInterval(interval);
-  }, []);
+    const handleAuctionWatched = (data: any) => {
+      const newActivity: Activity = {
+        id: Date.now().toString(),
+        type: 'watch',
+        bidder: 'Anonymous User',
+        time: 'just now',
+        auctionId: data.auctionId
+      };
+      
+      setActivities(prev => [newActivity, ...prev.slice(0, 9)]);
+    };
+
+    on('bid_placed', handleBidPlaced);
+    on('user_joined_auction', handleUserJoined);
+    on('auction_watched', handleAuctionWatched);
+
+    return () => {
+      off('bid_placed', handleBidPlaced);
+      off('user_joined_auction', handleUserJoined);
+      off('auction_watched', handleAuctionWatched);
+    };
+  }, [on, off]);
 
   const getActivityIcon = (type: string) => {
     switch (type) {
@@ -69,12 +102,17 @@ export const LiveActivityFeed = () => {
             <div className="flex-1">
               <span className={getActivityColor(activity.type)}>{activity.bidder}</span>
               {activity.amount && (
-                <span className="text-terminal-green ml-2">{activity.amount} tokens</span>
+                <span className="text-terminal-green ml-2">{activity.amount} $WKC</span>
               )}
             </div>
             <span className="text-muted-foreground">{activity.time}</span>
           </div>
         ))}
+        {activities.length === 0 && (
+          <div className="text-center py-4 text-xs text-muted-foreground">
+            No recent activity
+          </div>
+        )}
       </div>
     </div>
   );

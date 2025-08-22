@@ -1,7 +1,7 @@
-import AuctionDashboard from "@/components/SpyDashboard";
+import { MainDashboard } from "@/components/dashboard/MainDashboard";
 
 const Index = () => {
-  return <AuctionDashboard />;
+  return <MainDashboard />;
 };
 
 export default Index;

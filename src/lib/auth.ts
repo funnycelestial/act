@@ -1,4 +1,42 @@
-import { apiClient, User } from './api';
+import { apiClient } from './api';
+
+export interface User {
+  id: string;
+  anonymousId: string;
+  walletAddress: string;
+  email?: string;
+  profile: {
+    reputation: number;
+    totalAuctions: number;
+    wonAuctions: number;
+    successRate: number;
+    memberSince: string;
+    isVerified: boolean;
+    verificationLevel: string;
+  };
+  privacy?: {
+    identityMasked: boolean;
+    showActivity: boolean;
+    allowDirectMessages: boolean;
+  };
+  preferences?: {
+    notifications: {
+      email: boolean;
+      push: boolean;
+      bidUpdates: boolean;
+      auctionEnd: boolean;
+      escrowUpdates: boolean;
+    };
+    language: string;
+    timezone: string;
+  };
+  status: string;
+  roles: string[];
+  security: {
+    twoFactorEnabled: boolean;
+    lastLogin: string;
+  };
+}
 
 declare global {
   interface Window {
