@@ -197,21 +197,3 @@ export const LiveBiddingPanel = ({ auction }: LiveBiddingPanelProps) => {
     </div>
   );
 };
-                className="flex-1 bg-secondary/20 border border-panel-border px-2 py-1 text-xs focus:border-terminal-green focus:outline-none transition-colors" 
-                placeholder={isReverse ? "Enter quote amount..." : "Enter bid amount..."}
-                value={bidAmount}
-                onChange={(e) => setBidAmount(e.target.value)}
-              />
-              <button 
-                onClick={handleBid}
-                className="bg-terminal-green px-3 py-1 text-xs text-background hover:bg-terminal-green/80 transition-colors"
-              >
-                {isReverse ? "QUOTE" : "BID"}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
