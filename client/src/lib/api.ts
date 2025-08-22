@@ -17,6 +17,7 @@ export interface User {
   anonymousId: string;
   walletAddress: string;
   email?: string;
+  roles: string[];
   profile: {
     reputation: number;
     totalAuctions: number;
@@ -25,6 +26,22 @@ export interface User {
     memberSince: string;
     isVerified: boolean;
     verificationLevel: string;
+  };
+  privacy?: {
+    identityMasked: boolean;
+    showActivity: boolean;
+    allowDirectMessages: boolean;
+  };
+  preferences?: {
+    notifications: {
+      email: boolean;
+      push: boolean;
+      bidUpdates: boolean;
+      auctionEnd: boolean;
+      escrowUpdates: boolean;
+    };
+    language: string;
+    timezone: string;
   };
   status: string;
   security: {
@@ -74,6 +91,10 @@ export interface Auction {
     views: number;
     watchersCount: number;
   };
+  shipping?: {
+    method: string;
+    cost: number;
+  };
   isWatching?: boolean;
   timeRemaining?: number;
 }
@@ -82,13 +103,12 @@ export interface Bid {
   _id: string;
   bidId: string;
   auction: {
+    _id: string;
     auctionId: string;
-    auctionRef: {
-      title: string;
-      status: string;
-      timing: { endTime: string };
-      pricing: { currentBid: number };
-    };
+    title: string;
+    status: string;
+    timing: { endTime: string };
+    pricing: { currentBid: number };
   };
   bidder: {
     anonymousId: string;
@@ -173,7 +193,7 @@ class ApiClient {
     };
 
     if (this.token) {
-      headers.Authorization = `Bearer ${this.token}`;
+      (headers as Record<string, string>)['Authorization'] = `Bearer ${this.token}`;
     }
 
     try {

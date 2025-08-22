@@ -1,14 +1,4 @@
-// Note: socket.io-client is not available in this environment
-// This is a mock implementation for demonstration
-
-interface MockSocket {
-  connected: boolean;
-  connect: () => void;
-  disconnect: () => void;
-  emit: (event: string, data?: any) => void;
-  on: (event: string, callback: Function) => void;
-  off: (event: string, callback: Function) => void;
-}
+import { io, type Socket } from 'socket.io-client';
 
 export interface WebSocketEvents {
   // Connection events
@@ -91,7 +81,7 @@ class WebSocketService {
 
     this.socket.on('disconnect', (reason) => {
       console.log('WebSocket disconnected:', reason);
-      this.emit('disconnect');
+      this.emit('disconnect', undefined);
       
       if (reason === 'io server disconnect') {
         this.handleReconnect();
